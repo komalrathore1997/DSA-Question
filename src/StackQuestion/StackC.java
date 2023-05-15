@@ -1,13 +1,13 @@
-package StackQuestions;
+package StackQuestion;
 
-public class Stack {
+public class StackC {
    static final int MAX=1000;
    int top;
    int a[]=new int[MAX];
    boolean isEmpty() {
 	   return (top<0);
    }
-   Stack(){
+   StackC(){
 	   top=-1;
    }
    
@@ -45,7 +45,7 @@ public class Stack {
 	   }
    }
    public static void main(String[] args) {
-	Stack s=new Stack();
+	StackC s=new StackC();
 	s.push(10);
 	s.push(20);
 	s.push(30);
