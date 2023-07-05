@@ -1,79 +1,91 @@
 package Sorting;
 
 public class MergeSort {
-	public static void main(String[] args) {
-		int arr[] = { 12,11,13,5,6,7 };
-		System.out.println("Given Array");
-        printArray(arr);
-        
-        MergeSort o=new MergeSort();
-        o.divide(arr, 0,arr.length-1);
-        System.out.println();
-        System.out.println("Given Array");
-        printArray(arr);
-		
-	}
+	void merge(int arr[], int l, int m, int r) {
+		// Find sizes of two subarrays to be merged
+		int n1 = m - l + 1;
+		int n2 = r - m;
 
-	private static void printArray(int[] arr) {
-		int n = arr.length;
-        for (int i = 0; i < n; ++i)
-            System.out.print(arr[i] + " ");
-        System.out.println();
-		
-	}
+		// Create temp arrays
+		int L[] = new int[n1];
+		int R[] = new int[n2];
 
-	private static void divide(int[] arr, int si, int ei) {
-//		mid also we can find using (si+ei)/2 because space complexity will not come 
-//		we will use si+(ei-si)/2
-		if(si<ei) {
-         int mid=si+(ei-si)/2;
-         divide(arr,si,mid);
-         divide(arr,mid+1,ei); 
-         conqure(arr,si,mid,ei);
-		} 
-          
-	}
+		// Copy data to temp arrays
+		for (int i = 0; i < n1; ++i)
+			L[i] = arr[l + i];
+		for (int j = 0; j < n2; ++j)
+			R[j] = arr[m + 1 + j];
 
-	private static void conqure(int[] arr, int si, int mid, int ei) {
-		int idx1=mid-si+1;;
-		int idx2=ei-mid;
-		
-		int L[]=new int[idx1];
-		int R[]=new int[idx2];
-		
-		for(int i=0;i<idx1;++i) {
-			L[i]=arr[si+i];
-			
-		}
-		for(int j=0;j<idx2;++j) {
-			L[j]=arr[mid+1+j];
-			
-		}
-		
-		int i=0,j=0;
-		int k=si;
-		
-		while(i<idx1 && j<idx2) {
-			if(L[i]<=R[j]) {
-				arr[k]=L[i];
+		// Merge the temp arrays
+
+		// Initial indices of first and second subarrays
+		int i = 0, j = 0;
+
+		// Initial index of merged subarray array
+		int k = l;
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
 				i++;
-			}else {
-				arr[k]=R[j];
+			} else {
+				arr[k] = R[j];
 				j++;
 			}
 			k++;
 		}
-		while(i<idx1) {
-			arr[k]=L[i];
+
+		// Copy remaining elements of L[] if any
+		while (i < n1) {
+			arr[k] = L[i];
 			i++;
 			k++;
 		}
-		while(j<idx2) {
-			arr[k]=R[j];
+
+		// Copy remaining elements of R[] if any
+		while (j < n2) {
+			arr[k] = R[j];
 			j++;
 			k++;
-
 		}
-	
 	}
+
+	// Main function that sorts arr[l..r] using
+	// merge()
+	void sort(int arr[], int l, int r) {
+		if (l < r) {
+
+			// Find the middle point
+			int m = l + (r - l) / 2;
+
+			// Sort first and second halves
+			sort(arr, l, m);
+			sort(arr, m + 1, r);
+
+			// Merge the sorted halves
+			merge(arr, l, m, r);
+		}
+	}
+
+	// A utility function to print array of size n
+	static void printArray(int arr[]) {
+		int n = arr.length;
+		for (int i = 0; i < n; ++i)
+			System.out.print(arr[i] + " ");
+		System.out.println();
+	}
+
+	// Driver code
+	public static void main(String args[]) {
+		int arr[] = { 12, 11, 13, 5, 6, 7 };
+
+		System.out.println("Given array is");
+		printArray(arr);
+
+		MergeSort ob = new MergeSort();
+		ob.sort(arr, 0, arr.length - 1);
+
+		System.out.println("\nSorted array is");
+		printArray(arr);
+	}
+
 }
