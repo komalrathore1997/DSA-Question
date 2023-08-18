@@ -13,17 +13,14 @@ public class MinHeapImpl {
 		this.heapArray = new int[capacity];
 	}
 
-//    get the parent index for the given index
 	private int parent(int key) {
 		return (key - 1) / 2;
 	}
 
-//   get the left child index for given index
 	private int leftChild(int key) {
 		return 2 * key + 1;
 	}
 
-//  get the right child index for given index
 	private int rightChild(int key) {
 		return 2 * key + 2;
 	}
@@ -33,6 +30,7 @@ public class MinHeapImpl {
 		h.insert(12);
 		h.insert(2);
 		h.insert(1);
+		h.print();
 
 	}
 
@@ -48,12 +46,23 @@ public class MinHeapImpl {
         	 i=parent(i);
          }
 	}
+	
+	public void print()
+    {
+        for (int i = 1; i <= size / 2; i++) {
+ 
+            System.out.print(
+                " PARENT : " + heapArray[i]
+                + " LEFT CHILD : " + heapArray[2 * i]
+                + " RIGHT CHILD :" + heapArray[2 * i + 1]);
+ 
+            System.out.println();
+        }
+    }
 
 	private void swap(int parent, int heapArray) {
 		int temp=parent;
 		parent=heapArray;
-		heapArray=temp;
-		
-		
+		heapArray=temp;	
 	}
 }
